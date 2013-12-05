@@ -171,6 +171,8 @@ install: $NGX_OBJS${ngx_dirsep}libnginx${shared_ext}
 	cd objs; find . -name "*.h" | cpio -dp '\$(DESTDIR)$NGX_INC_PREFIX/nginx'
 	cd src; find . -name "*.h" | cpio -dp '\$(DESTDIR)$NGX_INC_PREFIX/nginx'
 	cp $NGX_OBJS${ngx_dirsep}libnginx${shared_ext} '\$(DESTDIR)$NGX_LIB_PREFIX'
+	install_name_tool -id '\$(DESTDIR)$NGX_LIB_PREFIX/libnginx${shared_ext}'\
+      '\$(DESTDIR)$NGX_LIB_PREFIX/libnginx${shared_ext}'
 END
 
 
