@@ -163,14 +163,14 @@ fi
 
 cat << END                                                     >> $NGX_MAKEFILE
 
-install: $NGX_OBJS${ngx_dirsep}nginx${shared_ext}
+install: $NGX_OBJS${ngx_dirsep}libnginx${shared_ext}
 	test -d '\$(DESTDIR)$NGX_PREFIX' || mkdir -p '\$(DESTDIR)$NGX_PREFIX'
 	test -d '\$(DESTDIR)$NGX_LIB_PREFIX' || mkdir -p '\$(DESTDIR)$NGX_LIB_PREFIX'
 	test -d '\$(DESTDIR)$NGX_INC_PREFIX' ||\
       mkdir -p '\$(DESTDIR)$NGX_INC_PREFIX/nginx'
 	cd objs; find . -name "*.h" | cpio -dp '\$(DESTDIR)$NGX_INC_PREFIX/nginx'
 	cd src; find . -name "*.h" | cpio -dp '\$(DESTDIR)$NGX_INC_PREFIX/nginx'
-	cp $NGX_OBJS${ngx_dirsep}nginx${shared_ext} '\$(DESTDIR)$NGX_LIB_PREFIX'
+	cp $NGX_OBJS${ngx_dirsep}libnginx${shared_ext} '\$(DESTDIR)$NGX_LIB_PREFIX'
 END
 
 

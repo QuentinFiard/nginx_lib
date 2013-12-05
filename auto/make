@@ -15,7 +15,6 @@ mkdir -p $NGX_OBJS/src/core $NGX_OBJS/src/event $NGX_OBJS/src/event/modules \
 
 ngx_objs_dir=$NGX_OBJS$ngx_regex_dirsep
 ngx_use_pch=`echo $NGX_USE_PCH | sed -e "s/\//$ngx_regex_dirsep/g"`
-shared_ext=.dylib
 
 
 cat << END                                                     > $NGX_MAKEFILE
@@ -199,8 +198,8 @@ $NGX_OBJS${ngx_dirsep}nginx${ngx_binext}:	\$(NGX_DEPS)
 	\$(LINK) ${ngx_long_start}${ngx_binout}$NGX_OBJS${ngx_dirsep}nginx$ngx_long_cont\$(NGX_OBJS) \$(NGX_LIBS) \$(NGX_LINK)
 	$ngx_rcc
 ${ngx_long_end}
-$NGX_OBJS${ngx_dirsep}nginx${shared_ext}:	\$(NGX_DEPS)
-	\$(LINK_SHARED) ${ngx_long_start}${ngx_binout}$NGX_OBJS${ngx_dirsep}nginx${shared_ext}$ngx_long_cont\$(NGX_OBJS) \$(NGX_LIBS) \$(NGX_LINK)
+$NGX_OBJS${ngx_dirsep}libnginx${shared_ext}:	\$(NGX_DEPS)
+	\$(LINK_SHARED) ${ngx_long_start}${ngx_binout}$NGX_OBJS${ngx_dirsep}libnginx${shared_ext}$ngx_long_cont\$(NGX_OBJS) \$(NGX_LIBS) \$(NGX_LINK)
 	$ngx_rcc
 ${ngx_long_end}
 END
