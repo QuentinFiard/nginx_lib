@@ -96,7 +96,7 @@ $NGX_OBJS/nginx.8:	$NGX_MAN $NGX_AUTO_CONFIG_H
 		-e "s|%%ERROR_LOG_PATH%%|${NGX_ERROR_LOG_PATH:-stderr}|" \\
 		< $NGX_MAN > \$@
 
-install:	$NGX_OBJS${ngx_dirsep}nginx${ngx_binext} \
+install/exe:	$NGX_OBJS${ngx_dirsep}nginx${ngx_binext} \
 		$NGX_INSTALL_PERL_MODULES
 	test -d '\$(DESTDIR)$NGX_PREFIX' || mkdir -p '\$(DESTDIR)$NGX_PREFIX'
 
@@ -161,6 +161,18 @@ END
 
 fi
 
+cat << END                                                     >> $NGX_MAKEFILE
+
+install: $NGX_OBJS${ngx_dirsep}nginx${shared_ext}
+	test -d '\$(DESTDIR)$NGX_PREFIX' || mkdir -p '\$(DESTDIR)$NGX_PREFIX'
+	test -d '\$(DESTDIR)$NGX_LIB_PREFIX' || mkdir -p '\$(DESTDIR)$NGX_LIB_PREFIX'
+	test -d '\$(DESTDIR)$NGX_INC_PREFIX' ||\
+      mkdir -p '\$(DESTDIR)$NGX_INC_PREFIX/nginx'
+	cd objs; find . -name "*.h" | cpio -dp '\$(DESTDIR)$NGX_INC_PREFIX/nginx'
+	cd src; find . -name "*.h" | cpio -dp '\$(DESTDIR)$NGX_INC_PREFIX/nginx'
+	cp $NGX_OBJS${ngx_dirsep}nginx${shared_ext} '\$(DESTDIR)$NGX_LIB_PREFIX'
+END
+
 
 # create Makefile
 
@@ -169,6 +181,9 @@ cat << END >> Makefile
 build:
 	\$(MAKE) -f $NGX_MAKEFILE
 	\$(MAKE) -f $NGX_MAKEFILE manpage
+
+install/exe:
+	\$(MAKE) -f $NGX_MAKEFILE install/exe
 
 install:
 	\$(MAKE) -f $NGX_MAKEFILE install

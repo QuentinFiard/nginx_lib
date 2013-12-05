@@ -10,6 +10,8 @@ NGX_SBIN_PATH=
 NGX_CONF_PREFIX=
 NGX_CONF_PATH=
 NGX_ERROR_LOG_PATH=
+NGX_INC_PREFIX=
+NGX_LIB_PREFIX=
 NGX_PID_PATH=
 NGX_LOCK_PATH=
 NGX_USER=
@@ -168,6 +170,8 @@ do
 
         --prefix=)                       NGX_PREFIX="!"             ;;
         --prefix=*)                      NGX_PREFIX="$value"        ;;
+        --inc_prefix=*)                  NGX_INC_PREFIX="$value"    ;;
+        --lib_prefix=*)                  NGX_LIB_PREFIX="$value"    ;;
         --sbin-path=*)                   NGX_SBIN_PATH="$value"     ;;
         --conf-path=*)                   NGX_CONF_PATH="$value"     ;;
         --error-log-path=*)              NGX_ERROR_LOG_PATH="$value";;
@@ -330,6 +334,8 @@ cat << END
   --help                             print this message
 
   --prefix=PATH                      set installation prefix
+  --inc_prefix=PATH                  set include prefix
+  --lib_prefix=PATH                  set lib prefix
   --sbin-path=PATH                   set nginx binary pathname
   --conf-path=PATH                   set nginx.conf pathname
   --error-log-path=PATH              set error log pathname

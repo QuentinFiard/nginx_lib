@@ -76,6 +76,36 @@ case ".$NGX_PREFIX" in
     ;;
 esac
 
+case ".$NGX_INC_PREFIX" in
+    .)
+        NGX_INC_PREFIX=${NGX_INC_PREFIX:-$NGX_PREFIX/include}
+        have=NGX_INC_PREFIX value="\"$NGX_INC_PREFIX/\"" . auto/define
+    ;;
+
+    .!)
+        NGX_INC_PREFIX=
+    ;;
+
+    *)
+        have=NGX_INC_PREFIX value="\"$NGX_INC_PREFIX/\"" . auto/define
+    ;;
+esac
+
+case ".$NGX_LIB_PREFIX" in
+    .)
+        NGX_LIB_PREFIX=${NGX_LIB_PREFIX:-$NGX_PREFIX/lib}
+        have=NGX_LIB_PREFIX value="\"$NGX_LIB_PREFIX/\"" . auto/define
+    ;;
+
+    .!)
+        NGX_LIB_PREFIX=
+    ;;
+
+    *)
+        have=NGX_LIB_PREFIX value="\"$NGX_LIB_PREFIX/\"" . auto/define
+    ;;
+esac
+
 if [ ".$NGX_CONF_PREFIX" != "." ]; then
     have=NGX_CONF_PREFIX value="\"$NGX_CONF_PREFIX/\"" . auto/define
 fi
